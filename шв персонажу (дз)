@@ -1,0 +1,32 @@
+using UnityEngine;
+using UnityEngine.InputSystem;
+
+public class PlayerController : MonoBehaviour
+{
+    public InputAction MoveAction;
+    public float speed = 5.0f;
+
+    // межі, за які персонаж не вийде
+    public float minX = -5f;
+    public float maxX = 5f;
+    public float minY = -3f;
+    public float maxY = 3f;
+
+    void Start()
+    {
+        MoveAction.Enable();
+    }
+
+    void Update()
+    {
+        Vector2 move = MoveAction.ReadValue<Vector2>();
+        Vector2 position = (Vector2)transform.position + move * speed * Time.deltaTime;
+
+        position.x = Mathf.Clamp(position.x, minX, maxX);
+        position.y = Mathf.Clamp(position.y, minY, maxY);
+
+        transform.position = position;
+    }
+}
+
+код для зміни шв. Персонажу
